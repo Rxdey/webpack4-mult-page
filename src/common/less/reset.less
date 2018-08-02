@@ -1,0 +1,37 @@
+@mainFontColor:#333;
+body {
+  font-family: 'Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif';
+  color: @mainFontColor;
+  background: #f7f7f7;
+}
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+body{padding:0; margin:0}
+html,body,fieldset,img,iframe,abbr{border:0;}
+li{list-style:none;}
+textarea{overflow:auto;resize:none;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+a,a:hover{text-decoration:none;}
+.hide{
+	display: none;
+}
+.box-sizing (@type: border-box) {
+	box-sizing:         @type;
+}
+.border-radius (@radius: 5px) {
+	border-radius:         @radius;
+}
+.ov(@row){
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: @row;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.ov_1 {
+  .ov(@row:1)
+}
+.ov_2 {
+  .ov(@row:2)
+}
+

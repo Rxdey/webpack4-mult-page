@@ -34,17 +34,14 @@ const config = {
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     ...buildEntriesAndHTML.htmls,
-    new CopyWebpackPlugin([
-      {
-        from: resolve('static'),
-        to: 'static',
-        ignore: ['.*']
-      }
-    ])
+    new CopyWebpackPlugin([{
+      from: resolve('static'),
+      to: 'static',
+      ignore: ['.*']
+    }])
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.js$/,
         loader: 'babel-loader',
         include: [
@@ -84,5 +81,4 @@ const config = {
     ]
   }
 };
-
 module.exports = config;

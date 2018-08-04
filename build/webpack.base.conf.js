@@ -12,7 +12,8 @@ const config = {
   entry: buildEntriesAndHTML.entries,
   output: {
     filename: 'js/[name].js',
-    path: resolve('dist/static')
+    path: resolve('dist'),
+    // publicPath:''
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -55,30 +56,6 @@ const config = {
       {
         test: /\.(htm|html)$/i,
         loader: 'html-withimg-loader'
-      },
-      {
-        test: /\.(less|css)$/,
-        use: [
-          'css-hot-loader', //支持热更新
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: { modules: false }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              config: {
-                path: resolve('postcss.config.js')
-              }
-            }
-          },
-          {
-            loader: 'less-loader',
-            options: { javascriptEnabled: true }
-          }
-        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

@@ -16,8 +16,8 @@ base['mode'] = 'development';
 base.plugins.push(
   new webpack.HotModuleReplacementPlugin(),
   new MiniCssExtractPlugin({
-    filename: '[name].[hash].css',
-    chunkFilename: '[id].[hash].css'
+    filename: './css/[name].[hash].css',
+    chunkFilename: './css/[id].[hash].css'
   })
 );
 base['devServer'] = {
@@ -28,10 +28,39 @@ base['devServer'] = {
   inline: true,
   historyApiFallback: false,
   quiet: true,
+  // publicPath: '/',
   proxy: {}
   // setup: function(app) {}
 };
-
+base.module.rules.push({
+  test: /\.(less|css)$/,
+  use: [
+    'css-hot-loader', //支持热更新
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    {
+      loader: 'css-loader',
+      options: { modules: false }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+        config: {
+          path: resolve('postcss.config.js')
+        }
+      }
+    },
+    {
+      loader: 'less-loader',
+      options: { javascriptEnabled: true }
+    }
+  ]
+});
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = PORT;
   portfinder.getPort(function(err, port) {
@@ -44,7 +73,9 @@ module.exports = new Promise((resolve, reject) => {
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
             messages: [
-              `Your application is running here: http://${ base.devServer.host }:${port}`
+              `Your application is running here: http://${
+                base.devServer.host
+              }:${port}`
             ]
           }
         })

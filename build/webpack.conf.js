@@ -2,6 +2,10 @@ const base = require('./webpack.base.conf');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const path = require('path');
+function resolve(dir) {
+  return path.join(__dirname, '../', dir);
+}
 base['devtool'] = '#source-map';
 base['mode'] = 'production';
 base.plugins.push(
@@ -22,4 +26,35 @@ base['optimization'] = {
     new OptimizeCSSAssetsPlugin({})
   ]
 };
+
+base.module.rules.push({
+  test: /\.(less|css)$/,
+  use: [
+    'css-hot-loader', //支持热更新
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    // MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: { modules: false }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+        config: {
+          path: resolve('postcss.config.js')
+        }
+      }
+    },
+    {
+      loader: 'less-loader',
+      options: { javascriptEnabled: true }
+    }
+  ]
+});
 module.exports = base;

@@ -20,6 +20,9 @@ const config = {
       '@': resolve('src')
     }
   },
+  externals: {
+    jquery: 'window.$'
+  },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
       root: path.resolve(__dirname, '../'), //根目录
@@ -48,6 +51,10 @@ const config = {
           resolve('test'),
           resolve('node_modules/webpack-dev-server/client')
         ]
+      },
+      {
+        test: /\.(htm|html)$/i,
+        loader: 'html-withimg-loader'
       },
       {
         test: /\.(less|css)$/,

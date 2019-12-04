@@ -39,8 +39,14 @@ const config = {
       test: /\.js$/,
       // loader: 'babel-loader',
       use: [
-        { loader: 'eslint-loader' },
-        { loader: 'babel-loader' }
+        { loader: 'babel-loader' },
+        {
+          loader: 'eslint-loader',
+          options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
+            // eslint-disable-next-line global-require
+            formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+          }
+        }
       ],
       enforce: 'pre',
       exclude: /node_modules/,
@@ -48,11 +54,7 @@ const config = {
         resolve('src'),
         resolve('test'),
         resolve('node_modules/webpack-dev-server/client')
-      ],
-      options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
-        // eslint-disable-next-line global-require
-        formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
-      }
+      ]
     },
     {
       test: /\.(htm|html)$/i,

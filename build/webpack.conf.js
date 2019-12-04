@@ -1,9 +1,10 @@
-const base = require('./webpack.base.conf');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
+const base = require('./webpack.base.conf');
+
 function resolve (dir) {
   return path.join(__dirname, '../', dir);
 }
@@ -12,10 +13,10 @@ base.mode = 'production';
 base.plugins.unshift(
   new CleanWebpackPlugin({
     cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist')], // 删除指定目录
-    verbose: true, //开启在控制台输出信息
-    dry: false //启用删除文件
-  }),
-)
+    verbose: true, // 开启在控制台输出信息
+    dry: false // 启用删除文件
+  })
+);
 base.plugins.push(
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
@@ -38,7 +39,7 @@ base.optimization = {
 base.module.rules.push({
   test: /\.(less|css)$/,
   use: [
-    'css-hot-loader', //支持热更新
+    'css-hot-loader', // 支持热更新
     {
       loader: MiniCssExtractPlugin.loader,
       options: {

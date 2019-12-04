@@ -1,13 +1,14 @@
 const webpack = require('webpack');
-const base = require('./webpack.base.conf');
 const path = require('path');
 
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const portfinder = require('portfinder');
+const base = require('./webpack.base.conf');
+
 let PORT = 8080;
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '../', dir);
 }
 
@@ -35,7 +36,7 @@ base.devServer = {
 base.module.rules.push({
   test: /\.(less|css)$/,
   use: [
-    'css-hot-loader', //支持热更新
+    'css-hot-loader', // 支持热更新
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
@@ -61,9 +62,9 @@ base.module.rules.push({
     }
   ]
 });
-module.exports = new Promise((resolve, reject) => {
+module.exports = new Promise((res, reject) => {
   portfinder.basePort = PORT;
-  portfinder.getPort(function(err, port) {
+  portfinder.getPort((err, port) => {
     if (err) {
       reject(err);
     } else {
@@ -73,14 +74,12 @@ module.exports = new Promise((resolve, reject) => {
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
             messages: [
-              `Your application is running here: http://${
-                base.devServer.host
-              }:${port}`
+              `Your application is running here: http://${base.devServer.host}:${port}`
             ]
           }
         })
       );
-      resolve(base);
+      res(base);
     }
   });
 });

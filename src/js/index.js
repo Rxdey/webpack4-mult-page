@@ -1,2 +1,3 @@
-import '../css/index.less'
-const $ = require("jquery")
+import '../css/index.less';
+
+const $ = require('jquery');

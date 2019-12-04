@@ -2,12 +2,20 @@ const base = require('./webpack.base.conf');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '../', dir);
 }
-base['devtool'] = '#source-map';
-base['mode'] = 'production';
+base.devtool = '#source-map';
+base.mode = 'production';
+base.plugins.unshift(
+  new CleanWebpackPlugin({
+    cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist')], // 删除指定目录
+    verbose: true, //开启在控制台输出信息
+    dry: false //启用删除文件
+  }),
+)
 base.plugins.push(
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
@@ -16,7 +24,7 @@ base.plugins.push(
     chunkFilename: './css/[id].[hash].css'
   })
 );
-base['optimization'] = {
+base.optimization = {
   minimizer: [
     new UglifyJsPlugin({
       cache: true,

@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const buildEntriesAndHTML = require('./mult')();
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -25,11 +24,6 @@ const config = {
     jquery: 'window.$'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, '../'), //根目录
-      verbose: true, //开启在控制台输出信息
-      dry: false //启用删除文件
-    }),
     // new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

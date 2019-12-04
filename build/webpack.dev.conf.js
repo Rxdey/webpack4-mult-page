@@ -11,8 +11,8 @@ function resolve(dir) {
   return path.join(__dirname, '../', dir);
 }
 
-base['devtool'] = 'cheap-module-eval-source-map';
-base['mode'] = 'development';
+base.devtool = 'cheap-module-eval-source-map';
+base.mode = 'development';
 base.plugins.push(
   new webpack.HotModuleReplacementPlugin(),
   new MiniCssExtractPlugin({
@@ -20,7 +20,7 @@ base.plugins.push(
     chunkFilename: './css/[id].[hash].css'
   })
 );
-base['devServer'] = {
+base.devServer = {
   contentBase: resolve('dist'),
   compress: true,
   port: 8080,
